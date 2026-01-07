@@ -70,7 +70,7 @@ autoencoder.compile(optimizer="adam", loss="binary_crossentropy")
 # ==============================
 # 5) 学習
 # ==============================
-autoencoder.fit(x_train, x_train,
+history = autoencoder.fit(x_train, x_train,
   epochs=10,
   batch_size=256,
   shuffle=True,
@@ -81,7 +81,7 @@ autoencoder.fit(x_train, x_train,
 # 6) 結果の保存
 # ==============================
 
-# 再構成画像の保存
+# 再構成画像
 decoded_images = autoencoder.predict(x_test[:10], verbose="0")
 
 plt.figure(figsize=(20, 4))
@@ -98,3 +98,13 @@ plt.tight_layout()
 plt.savefig(os.path.join(RESULT_DIR, "reconstruction.png"), dpi=200)
 plt.close()
 
+# 学習曲線（損失）
+plt.figure()
+plt.plot(history.history["loss"])
+plt.plot(history.history["val_loss"])
+plt.xlabel("epoch")
+plt.ylabel("loss")
+plt.legend(["train", "val"])
+plt.tight_layout()
+plt.savefig(os.path.join(RESULT_DIR, "loss_curve.png"), dpi=200)
+plt.close()
