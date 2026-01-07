@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 import keras
-from keras import layers
+from keras import layers, regularizers
 from keras.datasets import mnist
 
 
@@ -24,26 +24,33 @@ print("x_train:", x_train.shape)  # (60000, 784)
 print("x_test :", x_test.shape)   # (10000, 784)
 
 # 結果の保存先ディレクトリ
-RESULT_DIR = "results/simplest_AE"
+RESULT_DIR = "results/sparce_AE"
 os.makedirs(RESULT_DIR, exist_ok=True)
 
 
 # ==============================
-# 2) オートエンコーダ定義
-# ==============================
-encoding_dim = 32  # 潜在次元（圧縮後の表現）
+# 2) オートエンコーダ定義（sparce autoencoder）
+# ============================== 
+encoding_dim = 32
 
 # 入力（MNIST: 784次元ベクトル）
-input_img = keras.Input(shape=(784,), name="input_img")
+input_img = keras.Input(shape=(784,))
 
-# Encoder: 784 -> 32
-encoded = layers.Dense(encoding_dim, activation="relu", name="encoded")(input_img)
+# エンコーダ
+encoded = layers.Dense(
+  encoding_dim,
+  activation="relu",
+  activity_regularizer=regularizers.l1(10e-5)
+)(input_img)
 
-# Decoder: 32 -> 784
-decoded = layers.Dense(784, activation="sigmoid", name="decoded")(encoded)
+# デコーダ
+decoded = layers.Dense(
+  784,
+  activation="sigmoid"
+)(encoded)
 
-# Autoencoder: 入力 -> 再構成
-autoencoder = keras.Model(inputs=input_img, outputs=decoded, name="autoencoder")
+# モデル
+autoencoder = keras.Model(input_img, decoded)
 
 
 # ==============================
