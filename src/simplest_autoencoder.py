@@ -1,4 +1,6 @@
+import os
 import numpy as np
+import matplotlib.pyplot as plt
 
 import keras
 from keras import layers
@@ -20,6 +22,10 @@ x_test = x_test.reshape((len(x_test), np.prod(x_test.shape[1:])))
 
 print("x_train:", x_train.shape)  # (60000, 784)
 print("x_test :", x_test.shape)   # (10000, 784)
+
+# 結果の保存先ディレクトリ
+RESULT_DIR = "results/simplest_autoencoder"
+os.makedirs(RESULT_DIR, exist_ok=True)
 
 
 # ==============================
@@ -65,8 +71,30 @@ autoencoder.compile(optimizer="adam", loss="binary_crossentropy")
 # 5) 学習
 # ==============================
 autoencoder.fit(x_train, x_train,
-  epochs=50,
+  epochs=10,
   batch_size=256,
   shuffle=True,
   validation_data=(x_test, x_test)
 )
+
+# ==============================
+# 6) 結果の保存
+# ==============================
+
+# 再構成画像の保存
+decoded_images = autoencoder.predict(x_test[:10], verbose="0")
+
+plt.figure(figsize=(20, 4))
+for i in range(10):
+  ax = plt.subplot(2, 10, i + 1)
+  plt.imshow(x_test[i].reshape(28, 28), cmap="gray")
+  plt.axis("off")
+
+  ax = plt.subplot(2, 10, i + 11)
+  plt.imshow(decoded_images[i].reshape(28, 28), cmap="gray")
+  plt.axis("off")
+
+plt.tight_layout()
+plt.savefig(os.path.join(RESULT_DIR, "reconstruction.png"), dpi=200)
+plt.close()
+
