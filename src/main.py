@@ -79,7 +79,7 @@ autoencoder.compile(optimizer="adam", loss="binary_crossentropy")
 # 5) 学習
 # ==============================
 history = autoencoder.fit(x_train, x_train,
-  epochs=50,
+  epochs=100,
   batch_size=256,
   shuffle=True,
   validation_data=(x_test, x_test)
