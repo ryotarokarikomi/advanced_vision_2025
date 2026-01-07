@@ -24,7 +24,7 @@ print("x_train:", x_train.shape)  # (60000, 784)
 print("x_test :", x_test.shape)   # (10000, 784)
 
 # 結果の保存先ディレクトリ
-RESULT_DIR = "results/simplest_autoencoder"
+RESULT_DIR = "results/simplest_AE"
 os.makedirs(RESULT_DIR, exist_ok=True)
 
 
@@ -71,7 +71,7 @@ autoencoder.compile(optimizer="adam", loss="binary_crossentropy")
 # 5) 学習
 # ==============================
 history = autoencoder.fit(x_train, x_train,
-  epochs=10,
+  epochs=50,
   batch_size=256,
   shuffle=True,
   validation_data=(x_test, x_test)
