@@ -40,7 +40,7 @@ input_img = keras.Input(shape=(784,))
 encoded = layers.Dense(
   encoding_dim,
   activation="relu",
-  activity_regularizer=regularizers.l1(10e-5)
+  activity_regularizer=regularizers.l1(1e-6)
 )(input_img)
 
 # デコーダ
