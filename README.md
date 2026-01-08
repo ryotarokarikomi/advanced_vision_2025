@@ -22,6 +22,7 @@ Kerasを用いたオートエンコーダ
 - `tensorflow`
 - `numpy`
 - `matplotlib`
+- `keras`
 ### リポジトリのクローン
 ```
 git clone https://github.com/ryotarokarikomi/advanced_vision_2025.git
