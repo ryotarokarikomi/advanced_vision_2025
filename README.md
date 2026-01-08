@@ -42,6 +42,8 @@ python src/main.py
 ```
 python src/main.py --epochs 20 --encoding_dim 16
 ```
+## 実行結果
+![次元数32](results/ep30dim8/reconstruction.png)
 
 
 
