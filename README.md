@@ -15,6 +15,13 @@ Kerasを用いたオートエンコーダ
 
 <!------------------------>
 ## 実行のためのセットアップ
+### 動作確認済み環境
+- **OS**：Ubuntu 24.04.3 LTS
+- **Python**：3.12.3
+#### 必要なライブラリ
+- `tensorflow`
+- `numpy`
+- `matplotlib`
 ### リポジトリのクローン
 ```
 git clone https://github.com/ryotarokarikomi/advanced_vision_2025.git
