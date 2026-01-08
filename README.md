@@ -141,3 +141,8 @@ $$
 ## 参考文献
 - [Building Autoencoders in Keras](https://blog.keras.io/building-autoencoders-in-keras.html)
 <!------------------------>
+
+<!------------------------>
+## ライセンス
+本リポジトリはのコードは MIT License のもとで公開されています．
+<!------------------------>
