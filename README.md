@@ -107,7 +107,9 @@ python src/main.py --epochs 30 --encoding_dim 128 --out results/ep30dim128
 #### エンコーダ
 入力を $\mathbf{x}$ ，潜在表現を $\mathbf{z}$，パラメータを $\theta$ とするとエンコーダは以下のように表される．
 
-$\mathbf{z} = f_\theta(\mathbf{x})$
+$$
+\mathbf{z} = f_\theta(\mathbf{x})
+$$
 
 本モデルでは，全結合層と活性化関数ReLUを用いて構成する．
 #### デコーダ
