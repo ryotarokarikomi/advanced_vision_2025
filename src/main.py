@@ -49,16 +49,16 @@ encoding_dim = args.encoding_dim
 input_img = keras.Input(shape=(784,), name="input_img")
 
 # Encoder: 784 -> 256 -> 128 -> 64 -> 32
-encoded = layers.Dense(256, activation='relu')(input_img)
-encoded = layers.Dense(128, activation='relu')(encoded)
-encoded = layers.Dense(64, activation='relu')(encoded)
-encoded = layers.Dense(encoding_dim, activation='relu')(encoded)
+x = layers.Dense(256, activation='relu')(input_img)
+x = layers.Dense(128, activation='relu')(x)
+x = layers.Dense(64, activation='relu')(x)
+encoded = layers.Dense(encoding_dim, activation='relu', name="encoding_output")(x)
 
 # Decoder: 32 -> 64 -> 128 -> 256 -> 784
-decoded = layers.Dense(64, activation='relu')(encoded)
-decoded = layers.Dense(128, activation='relu')(decoded)
-decoded = layers.Dense(256, activation='relu')(decoded)
-decoded = layers.Dense(784, activation='sigmoid')(decoded)
+x = layers.Dense(64, activation='relu')(encoded)
+x = layers.Dense(128, activation='relu')(x)
+x = layers.Dense(256, activation='relu')(x)
+decoded = layers.Dense(784, activation='sigmoid', name="decoder_output")(x)
 
 autoencoder = keras.Model(inputs=input_img, outputs=decoded, name="autoencoder")
 
@@ -73,12 +73,12 @@ encoder = keras.Model(inputs=input_img, outputs=encoded, name="encoder")
 encoded_input = keras.Input(shape=(encoding_dim,), name="encoded_input")
 
 # autoencoderの後半3つの層を順番に適用
-x = autoencoder.layers[-4](encoded_input)
-x = autoencoder.layers[-3](x)
-x = autoencoder.layers[-2](x)
-decoder_output = autoencoder.layers[-1](x)
+decoder_layers = autoencoder.layers[-4:]
+x = encoded_input
+for layer in decoder_layers:
+  x = layer(x)
 
-decoder = keras.Model(inputs=encoded_input, outputs=decoder_output, name="decoder")
+decoder = keras.Model(inputs=encoded_input, outputs=x, name="decoder")
 
 
 # ==============================
