@@ -66,6 +66,7 @@ python src/main.py --epochs 20 --encoding_dim 16
 python src/main.py --epochs 30 --encoding_dim 8 --out results/ep30dim8
 ```
 ![次元数8](results/ep30dim8/reconstruction.png)
+![次元数8](results/ep30dim8/loss_curve.png)
 
 ---
 ### 次元数32
@@ -73,6 +74,7 @@ python src/main.py --epochs 30 --encoding_dim 8 --out results/ep30dim8
 python src/main.py --epochs 30 --encoding_dim 32 --out results/ep30dim32
 ```
 ![次元数32](results/ep30dim32/reconstruction.png)
+![次元数32](results/ep30dim32/loss_curve.png)
 
 ---
 ### 次元数128
@@ -80,6 +82,7 @@ python src/main.py --epochs 30 --encoding_dim 32 --out results/ep30dim32
 python src/main.py --epochs 30 --encoding_dim 128 --out results/ep30dim128
 ```
 ![次元数128](results/ep30dim128/reconstruction.png)
+![次元数128](results/ep30dim128/loss_curve.png)
 <!------------------------>
 
 <!------------------------>
