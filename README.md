@@ -105,7 +105,7 @@ python src/main.py --epochs 30 --encoding_dim 128 --out results/ep30dim128
 本実装で用いたオートエンコーダは，入力データ $\mathbf{x} \in [0,1]^{784}$ を低次元の潜在表現へ写像し，
 そこから元の入力を再構成するモデルである．
 #### エンコーダ
-入力を $\mathbf{x}$ ，潜在表現を $\mathbf{z}$，パラメータを $\theta$ とするとエンコーダは以下のように表される．
+入力を$\mathbf{x}$，潜在表現を $\mathbf{z}$，パラメータを $\theta$ とするとエンコーダは以下のように表される．
 $
 \mathbf{z} = f_\theta(\mathbf{x})
 $
