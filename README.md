@@ -143,7 +143,7 @@ $$
 
 <!------------------------>
 ## 参考文献
-- [Building Autoencoders in Keras](https://blog.keras.io/building-autoencoders-in-keras.html)
+- [Building Autoencoders in Keras](https://blog.keras.io/building-autoencoders-in-keras.html)（Apache License, Version 2.0）
 <!------------------------>
 
 <!------------------------>
