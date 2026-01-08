@@ -43,7 +43,22 @@ python src/main.py
 python src/main.py --epochs 20 --encoding_dim 16
 ```
 ## 実行結果
-![次元数32](results/ep30dim8/reconstruction.png)
+エポック数を30に固定し，潜在表現の次元数（`encoding_dim`）が再構成画像の品質に与える影響を比較．
+### 次元数8
+```
+python src/main.py --epochs 30 --encoding_dim 8 --out results/ep30dim8
+```
+![次元数8](results/ep30dim8/reconstruction.png)
+### 次元数32
+```
+python src/main.py --epochs 30 --encoding_dim 32 --out results/ep30dim32
+```
+![次元数32](results/ep30dim32/reconstruction.png)
+### 次元数128
+```
+python src/main.py --epochs 30 --encoding_dim 128 --out results/ep30dim128
+```
+![次元数128](results/ep30dim128/reconstruction.png)
 
 
 
