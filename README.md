@@ -105,23 +105,17 @@ python src/main.py --epochs 30 --encoding_dim 128 --out results/ep30dim128
 本実装で用いたオートエンコーダは，入力データ $\mathbf{x} \in [0,1]^{784}$ を低次元の潜在表現へ写像し，
 そこから元の入力を再構成するモデルである．
 #### エンコーダ
-入力を$\mathbf{x}$，潜在表現を $\mathbf{z}$，パラメータを $\theta$ とするとエンコーダは以下のように表される．
-$
-\mathbf{z} = f_\theta(\mathbf{x})
-$
+入力を $\mathbf{x}$ ，潜在表現を $\mathbf{z}$，パラメータを $\theta$ とするとエンコーダは以下のように表される．
+$\mathbf{z} = f_\theta(\mathbf{x})$
 本モデルでは，全結合層と活性化関数ReLUを用いて構成する．
 #### デコーダ
 パラメータを $\phi$ とするとデコーダは以下のように表される．
-$
-\hat{\mathbf{x}} = g_\phi(\mathbf{z})
-$
+$\hat{\mathbf{x}} = g_\phi(\mathbf{z})$
 出力層にはSigmoid関数を用いて，画素値を $[0,1]$ の範囲に制限している．
 #### 損失関数
 本モデルでは再構成誤差としてBinary Cross-Entropyを用いた．
 損失を $\mathcal{L}$ として， $\mathbf{x}$ と $\hat{\mathbf{x}}$ の誤差は以下のように表される．
-$
-\mathcal{L}(\mathbf{x}, \hat{\mathbf{x}}) = -\sum_{i=1}^{784}\left[x_i \log \hat{x}_i + (1-x_i)\log(1-\hat{x}_i)\right]
-$
+$\mathcal{L}(\mathbf{x}, \hat{\mathbf{x}}) = -\sum_{i=1}^{784}\left[x_i \log \hat{x}_i + (1-x_i)\log(1-\hat{x}_i)\right]$
 <!------------------------>
 
 <!------------------------>
