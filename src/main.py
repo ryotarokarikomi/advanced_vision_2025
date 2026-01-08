@@ -1,4 +1,5 @@
 import os
+import argparse
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -6,6 +7,16 @@ import keras
 from keras import layers
 from keras.datasets import mnist
 
+# ==============================
+# 0) コマンドライン引数の設定
+# ==============================
+parser = argparse.ArgumentParser(description='Autoencoder MNIST Training')
+parser.add_argument('--epochs', type=int, default=100, help='Number of epochs to train')
+parser.add_argument('--batch_size', type=int, default=256, help='Batch size for training')
+parser.add_argument('--encoding_dim', type=int, default=32, help='Dimension of the latent space')
+parser.add_argument('--out', type=str, default='results/', help='Directory to save results')
+
+args = parser.parse_args()
 
 # ==============================
 # 1) データ読み込み & 前処理
@@ -24,7 +35,7 @@ print("x_train:", x_train.shape)  # (60000, 784)
 print("x_test :", x_test.shape)   # (10000, 784)
 
 # 結果の保存先ディレクトリ
-RESULT_DIR = "results/main"
+RESULT_DIR = args.out
 os.makedirs(RESULT_DIR, exist_ok=True)
 
 
@@ -32,7 +43,7 @@ os.makedirs(RESULT_DIR, exist_ok=True)
 # 2) オートエンコーダ定義
 # ==============================
 
-encoding_dim = 32
+encoding_dim = args.encoding_dim
 
 # 入力（MNIST: 784次元ベクトル）
 input_img = keras.Input(shape=(784,), name="input_img")
@@ -41,7 +52,7 @@ input_img = keras.Input(shape=(784,), name="input_img")
 encoded = layers.Dense(256, activation='relu')(input_img)
 encoded = layers.Dense(128, activation='relu')(encoded)
 encoded = layers.Dense(64, activation='relu')(encoded)
-encoded = layers.Dense(32, activation='relu')(encoded)
+encoded = layers.Dense(encoding_dim, activation='relu')(encoded)
 
 # Decoder: 32 -> 64 -> 128 -> 256 -> 784
 decoded = layers.Dense(64, activation='relu')(encoded)
@@ -79,8 +90,8 @@ autoencoder.compile(optimizer="adam", loss="binary_crossentropy")
 # 5) 学習
 # ==============================
 history = autoencoder.fit(x_train, x_train,
-  epochs=100,
-  batch_size=256,
+  epochs=args.epochs,
+  batch_size=args.batch_size,
   shuffle=True,
   validation_data=(x_test, x_test)
 )
