@@ -27,6 +27,23 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
+## 実行方法
+### デフォルト設定での実行
+```
+python src/main.py
+```
+**デフォルトのパラメータ**
+- エポック数：100
+- バッチサイズ：256
+- 潜在表現の次元数：32
+- 結果の保存先：`results/`
+### パラメータを変更して実行
+例）エポック数を20，潜在表現の次元数を16
+```
+python src/main.py --epochs 20 --encoding_dim 16
+```
+
+
 
 ## 参考文献
 - [Building Autoencoders in Keras](https://blog.keras.io/building-autoencoders-in-keras.html)
