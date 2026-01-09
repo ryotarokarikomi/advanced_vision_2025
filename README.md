@@ -15,6 +15,9 @@ Kerasを用いたオートエンコーダ
 
 <!------------------------>
 ## 実行のためのセットアップ
+### テスト環境 ![Tests](https://github.com/ryotarokarikomi/advanced_vision_2025/actions/workflows/test.yml/badge.svg?branch=main)
+- **OS**：Ubuntu（GitHub Actions，`ubuntu-latest`）
+- **Python**：3.12
 ### 動作確認済み環境
 - **OS**：Ubuntu 24.04.3 LTS
 - **Python**：3.12.3
