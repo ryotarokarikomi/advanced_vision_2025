@@ -1,6 +1,9 @@
 import os
 import argparse
 import numpy as np
+import matplotlib
+# バックエンドをAggに指定
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 import keras
@@ -88,9 +91,6 @@ def main():
   RESULT_DIR = args.out
   os.makedirs(RESULT_DIR, exist_ok=True)
 
-  # 潜在表現の次元数を定義
-  encoding_dim = args.encoding_dim
-
   # ==============================
   # 5) 学習設定
   # ==============================
@@ -110,7 +110,7 @@ def main():
   # 7) 結果の保存
   # ==============================
   # 再構成画像
-  decoded_images = autoencoder.predict(x_test[:10], verbose="0")
+  decoded_images = autoencoder.predict(x_test[:10], verbose=0)
 
   plt.figure(figsize=(20, 4))
   for i in range(10):
