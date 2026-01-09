@@ -16,7 +16,7 @@
 ## 実行のためのセットアップ
 ### テスト環境
 - **OS**：Ubuntu（GitHub Actions，`ubuntu-latest`）
-- **Python**：3.12
+- **Python**：3.12.x
 ### 動作確認済み環境
 - **OS**：Ubuntu 24.04.3 LTS
 - **Python**：3.12.3
@@ -133,6 +133,15 @@ $$
 $$
 
 出力層にはSigmoid関数を用いて，画素値を $[0,1]$ の範囲に制限している．
+#### 活性化関数
+- **ReLU**
+$$
+\mathrm{ReLU}(x) = \max(0, x)
+$$
+- **Sigmoid**
+$$
+\sigma(x) = \frac{1}{1 + e^{-x}}
+$$
 #### 損失関数
 本モデルでは再構成誤差としてBinary Cross-Entropyを用いた．
 損失を $\mathcal{L}$ として， $\mathbf{x}$ と $\hat{\mathbf{x}}$ の誤差は以下のように表される．
