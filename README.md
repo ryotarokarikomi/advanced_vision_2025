@@ -1,6 +1,5 @@
 # アドバンスドビジョン - 課題
-![Tests](https://github.com/ryotarokarikomi/advanced_vision_2025/actions/workflows/test.yml/badge.svg?branch=main)  
-
+[![Tests](https://github.com/ryotarokarikomi/advanced_vision_2025/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/ryotarokarikomi/advanced_vision_2025/actions/workflows/test.yml)
 <!------------------------>
 ## 概要
 本リポジトリでは，オートエンコーダを用いて，MNIST手書き数字データセットに対して画像の次元圧縮および再構成をおこなった．
