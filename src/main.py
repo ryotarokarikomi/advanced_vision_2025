@@ -19,34 +19,10 @@ def parse_args():
   parser.add_argument('--out', type=str, default='results/', help='Directory to save results')
   return parser.parse_args()
 
-def main():
-  args = parse_args()
-
-  # ==============================
-  # 1) データ読み込み & 前処理
-  # ==============================
-  (x_train, _), (x_test, _) = mnist.load_data()
-
-  # 0-255 -> 0-1 に正規化（sigmoid出力 & BCE loss と相性が良い）
-  x_train = x_train.astype("float32") / 255.0
-  x_test = x_test.astype("float32") / 255.0
-
-  # 28x28 -> 784 に flatten（Dense入力に合わせる）
-  x_train = x_train.reshape((len(x_train), np.prod(x_train.shape[1:])))
-  x_test = x_test.reshape((len(x_test), np.prod(x_test.shape[1:])))
-
-  print("x_train:", x_train.shape)  # (60000, 784)
-  print("x_test :", x_test.shape)   # (10000, 784)
-
-  # 結果の保存先ディレクトリ
-  RESULT_DIR = args.out
-  os.makedirs(RESULT_DIR, exist_ok=True)
-
-
-  # ==============================
-  # 2) オートエンコーダ定義
-  # ==============================
-  encoding_dim = args.encoding_dim
+# ==============================
+# 1) オートエンコーダ定義
+# ==============================
+def models(encoding_dim: int):
 
   # 入力（MNIST: 784次元ベクトル）
   input_img = keras.Input(shape=(784,), name="input_img")
@@ -66,7 +42,7 @@ def main():
   autoencoder = keras.Model(inputs=input_img, outputs=decoded, name="autoencoder")
 
   # ==============================
-  # 3) Encoder / Decoder を分離
+  # 2) Encoder / Decoder を分離
   # ==============================
   # Encoder: 入力 -> 潜在表現
   encoder = keras.Model(inputs=input_img, outputs=encoded, name="encoder")
@@ -82,14 +58,46 @@ def main():
 
   decoder = keras.Model(inputs=encoded_input, outputs=x, name="decoder")
 
+  return autoencoder, encoder, decoder
+  
+
+# ==============================
+# 3) main関数
+# ==============================
+def main():
+  args = parse_args()
+  autoencoder, encoder, decoder = models(args.encoding_dim)
 
   # ==============================
-  # 4) 学習設定
+  # 4) データ読み込み & 前処理
+  # ==============================
+  (x_train, _), (x_test, _) = mnist.load_data()
+
+  # 0-255 -> 0-1 に正規化（sigmoid出力 & BCE loss と相性が良い）
+  x_train = x_train.astype("float32") / 255.0
+  x_test = x_test.astype("float32") / 255.0
+
+  # 28x28 -> 784 に flatten（Dense入力に合わせる）
+  x_train = x_train.reshape((len(x_train), np.prod(x_train.shape[1:])))
+  x_test = x_test.reshape((len(x_test), np.prod(x_test.shape[1:])))
+
+  print("x_train:", x_train.shape)  # (60000, 784)
+  print("x_test :", x_test.shape)   # (10000, 784)
+
+  # 結果の保存先ディレクトリ
+  RESULT_DIR = args.out
+  os.makedirs(RESULT_DIR, exist_ok=True)
+
+  # 潜在表現の次元数を定義
+  encoding_dim = args.encoding_dim
+
+  # ==============================
+  # 5) 学習設定
   # ==============================
   autoencoder.compile(optimizer="adam", loss="binary_crossentropy")
 
   # ==============================
-  # 5) 学習
+  # 6) 学習
   # ==============================
   history = autoencoder.fit(x_train, x_train,
     epochs=args.epochs,
@@ -99,7 +107,7 @@ def main():
   )
 
   # ==============================
-  # 6) 結果の保存
+  # 7) 結果の保存
   # ==============================
   # 再構成画像
   decoded_images = autoencoder.predict(x_test[:10], verbose="0")
