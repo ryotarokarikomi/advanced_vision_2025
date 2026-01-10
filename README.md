@@ -14,9 +14,12 @@
 
 <!------------------------>
 ## 実行のためのセットアップ
-### テスト環境
-- **OS**：Ubuntu（GitHub Actions，`ubuntu-latest`）
-- **Python**：3.12.x
+### テスト
+- **内容**
+  - ダミーデータを用いた構造のテスト
+- **環境**
+  - **OS**：Ubuntu（GitHub Actions，`ubuntu-latest`）
+  - **Python**：3.12.x
 ### 動作確認済み環境
 - **OS**：Ubuntu 24.04.3 LTS
 - **Python**：3.12.3
