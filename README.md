@@ -102,7 +102,7 @@ python src/main.py --epochs 30 --encoding_dim 128 --out results/ep30dim128
 エンコーダとデコーダの2つのネットワークから構成される．
 
 ### ネットワーク構成
-![オートエンコーダ](images/AE.png)
+![オートエンコーダ](images/AE_model.png)
 #### エンコーダ
 - **入力層**：784次元
 - **隠れ層1**：256次元（活性化関数：**ReLU**）
