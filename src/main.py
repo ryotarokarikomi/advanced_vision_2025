@@ -30,13 +30,13 @@ def models(encoding_dim: int):
   # 入力（MNIST: 784次元ベクトル）
   input_img = keras.Input(shape=(784,), name="input_img")
 
-  # Encoder: 784 -> 256 -> 128 -> 64 -> 32
+  # エンコーダ：784 -> 256 -> 128 -> 64 -> 任意の次元（デフォルト：32）
   x = layers.Dense(256, activation='relu')(input_img)
   x = layers.Dense(128, activation='relu')(x)
   x = layers.Dense(64, activation='relu')(x)
   encoded = layers.Dense(encoding_dim, activation='relu', name="encoding_output")(x)
 
-  # Decoder: 32 -> 64 -> 128 -> 256 -> 784
+  # デコーダ：64 -> 128 -> 256 -> 784
   x = layers.Dense(64, activation='relu')(encoded)
   x = layers.Dense(128, activation='relu')(x)
   x = layers.Dense(256, activation='relu')(x)
@@ -47,13 +47,13 @@ def models(encoding_dim: int):
   # ==============================
   # 2) Encoder / Decoder を分離
   # ==============================
-  # Encoder: 入力 -> 潜在表現
+  # エンコーダ：入力 -> 潜在表現
   encoder = keras.Model(inputs=input_img, outputs=encoded, name="encoder")
 
-  # Decoder: 潜在表現 -> 再構成
+  # デコーダ：潜在表現 -> 再構成
   encoded_input = keras.Input(shape=(encoding_dim,), name="encoded_input")
 
-  # autoencoderの後半3つの層を順番に適用
+  # オートエンコーダの後半3つの層を順番に適用
   decoder_layers = autoencoder.layers[-4:]
   x = encoded_input
   for layer in decoder_layers:
